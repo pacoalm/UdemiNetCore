@@ -11,7 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProductAPI.Context;
+using ProductAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using ProductAPI.Repository.IRepository;
 
 namespace ProductAPI
 {
@@ -29,7 +31,10 @@ namespace ProductAPI
         {
             services.AddDbContext<ApplicationDbContext>(option=> option.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString"))); 
             services.AddControllers();
-
+            services.AddScoped<IProductRepository, ProductAPI.Repository.ProductRepository>();
+            services.AddAutoMapper(configuration => {
+                configuration.CreateMap<Product, ProductAPI.Models.dto.productDTO>();
+            }, typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
