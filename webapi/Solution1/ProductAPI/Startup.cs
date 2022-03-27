@@ -14,6 +14,7 @@ using ProductAPI.Context;
 using ProductAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using ProductAPI.Repository.IRepository;
+using ProductAPI.Models.dto;
 
 namespace ProductAPI
 {
@@ -33,7 +34,8 @@ namespace ProductAPI
             services.AddControllers();
             services.AddScoped<IProductRepository, ProductAPI.Repository.ProductRepository>();
             services.AddAutoMapper(configuration => {
-                configuration.CreateMap<Product, ProductAPI.Models.dto.productDTO>();
+                configuration.CreateMap<Product, productDTO>();
+                configuration.CreateMap<productDTO, Product>();
             }, typeof(Startup));
         }
 
